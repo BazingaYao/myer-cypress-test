@@ -1,6 +1,5 @@
 import { Given, When, Then } from "cypress-cucumber-preprocessor/steps"
 import SignupPage from "./signupPage"
-import { should } from "chai";
 
 // Scenario: User enters an invalid email address
 Given("the user is on the signup page", () => {
@@ -57,3 +56,36 @@ When("clicks the \"eye\" icon again", () => {
 Then("the password should be hidden", () => {
   SignupPage.shouldSeePasswordAs('password'); 
 });
+
+// Scenario: First Name doesn't meet the requirements
+When("user enters an invalid first name {string}", (firstName) => {
+  if (firstName === 'a * 500') { 
+    firstName = 'a'.repeat(500);
+  }
+  SignupPage.enterFirstName(firstName)
+});
+
+And('click anywhere', () => {
+  SignupPage.clickAnywhere() 
+});
+
+Then("should see the name error message", () => {
+  SignupPage.FirstNameError()
+});
+
+// Scenario Outline: Last Name doesn't meet the requirements
+When("user enters an invalid last name {string}", (lastName) => {
+  if (lastName === 'a * 500') { 
+    lastName = 'a'.repeat(500);
+  }
+  SignupPage.enterLastName(lastName)
+});
+
+And('click anywhere', () => {
+  SignupPage.clickAnywhere() 
+});
+
+Then("should see the name error message", () => {
+  SignupPage.LastNameError()
+});
+

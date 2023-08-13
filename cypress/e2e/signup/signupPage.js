@@ -3,6 +3,8 @@ const EMAIL_ADDRESS = '#email'
 const PASSWORD = '#password'
 const JOIN_ERROR = '#email-error-text'
 const PASSWORD_ERROR ='#password-error-text'
+const FIRST_NAME_ERROR = '#first-name-error-text'
+const LAST_NAME_ERROR = '#last-name-error-text'
 
 
 class SignupPage {
@@ -54,6 +56,27 @@ class SignupPage {
   static shouldSeePasswordAs(type) {
     cy.get('#password').should('have.attr', 'type', type);
   }
+
+  static enterFirstName(firstName) {
+    cy.get('#first-name').type(firstName);
+  }
+
+  static enterLastName(lastName) {
+    cy.get('#last-name').type(lastName);
+  }
+
+  static FirstNameError() {
+    cy.get(FIRST_NAME_ERROR).contains("Please enter a valid name");
+  }
+
+  static LastNameError() {
+    cy.get(LAST_NAME_ERROR).contains("Please enter a valid name");
+  }
+
+
+
+
+
 }
 
 export default SignupPage;
