@@ -1,10 +1,14 @@
+
 const URL = 'https://www.myer.com.au/join'
 const EMAIL_ADDRESS = '#email'
 const PASSWORD = '#password'
-const JOIN_ERROR = '#email-error-text'
+const EMAIL_ERROR = '#email-error-text'
 const PASSWORD_ERROR ='#password-error-text'
 const FIRST_NAME_ERROR = '#first-name-error-text'
 const LAST_NAME_ERROR = '#last-name-error-text'
+const MOBILE_NUMBER_ERROR= '#mobile-phone-error-text'
+const DOB_ERROR = '#date-of-birth-error-text'
+const ADDRESS_ERROR = '#address-error-text'
 
 
 class SignupPage {
@@ -12,18 +16,21 @@ class SignupPage {
     cy.visit(URL);
   }
 
+  //Email Field
   static enterEmailAddress(email) {
     cy.get(EMAIL_ADDRESS).type(email);
   }
 
-  static clickButton(buttonLabel) {
-    cy.contains('Join', buttonLabel).click();
+  static clickJoinButton() {
+    cy.get('button[type="button"]').contains('Join').click({force: true});
+  }
+ 
+  //Join Button
+  static emailError() {
+    cy.get(EMAIL_ERROR).contains("Please enter a valid email address");
   }
 
-  static JoinError() {
-    cy.get(JOIN_ERROR).contains("Please enter a valid email address");
-  }
-
+  //Personal Information Field
   static shouldSeeInformationFields() {
     cy.get('input[id=password]').should('be.visible'); 
     cy.get('input[id=first-name]').should('be.visible'); 
@@ -33,6 +40,7 @@ class SignupPage {
     cy.get('input[id=address]').should('be.visible'); 
   }
 
+  //Password Field
   static enterPassword(password) {
     cy.get(PASSWORD).type(password);
   }
@@ -41,10 +49,11 @@ class SignupPage {
     cy.get('body').click();
   }
 
-  static PasswordError() {
+  static passwordError() {
     cy.get(PASSWORD_ERROR).contains("Please enter a valid password");
   }
 
+  //Password Visibility
   static clickEyeIconToShow() {
     cy.get('#password-hidden-icon').click();
   }
@@ -57,25 +66,58 @@ class SignupPage {
     cy.get('#password').should('have.attr', 'type', type);
   }
 
+  //First Name Field
   static enterFirstName(firstName) {
     cy.get('#first-name').type(firstName);
   }
 
+  static firstNameError() {
+    cy.get(FIRST_NAME_ERROR).contains("Please enter a valid name");
+  }
+
+  //Last Name Field
   static enterLastName(lastName) {
     cy.get('#last-name').type(lastName);
   }
 
-  static FirstNameError() {
-    cy.get(FIRST_NAME_ERROR).contains("Please enter a valid name");
-  }
-
-  static LastNameError() {
+  static lastNameError() {
     cy.get(LAST_NAME_ERROR).contains("Please enter a valid name");
   }
 
+  //Mobile Number Field 
+  static enterMobileNumber(mobileNumber) {
+    cy.get('#mobile-phone').type(mobileNumber);
+  }
 
+  static mobileNumberError() {
+    cy.get(MOBILE_NUMBER_ERROR).contains("Please enter a valid Australian mobile phone number");
+  }
 
+  static verifyMobileNumber(expectedNumber) {
+    cy.get('#mobile-phone').should('have.value', expectedNumber);
+  }
 
+  //Date of Birth Field
+  static enterDOB(DOB) {
+    cy.get('#date-of-birth').type(DOB);
+  }
+
+  static dateOfBirthError(errorMessage) {
+    cy.get(DOB_ERROR).contains(errorMessage);
+  }
+
+  //Address Finder Field
+  static enterAddress(address) {
+    cy.get('#address').type(address);
+  }
+
+  // static clickCreateButton() {
+  //   cy.get('#create-account').click();
+  // }
+
+  static addressError() {
+    cy.get(ADDRESS_ERROR).contains("Please enter a valid address");
+  }
 
 }
 
