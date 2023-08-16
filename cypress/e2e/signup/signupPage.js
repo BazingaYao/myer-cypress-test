@@ -42,7 +42,7 @@ class SignupPage {
 
   //Password Field
   static enterPassword(password) {
-    cy.get(PASSWORD).type(password);
+    cy.get(PASSWORD).type(password).click();
   }
 
   static clickAnywhere() {
@@ -108,12 +108,9 @@ class SignupPage {
 
   //Address Finder Field
   static enterAddress(address) {
-    cy.get('#address').type(address);
+    cy.get('#address').type(address).click();
+    cy.get('.MuiList-root .MuiButtonBase-root').first().click();
   }
-
-  // static clickCreateButton() {
-  //   cy.get('#create-account').click();
-  // }
 
   static addressError() {
     cy.get(ADDRESS_ERROR).contains("Please enter a valid address");
